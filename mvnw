@@ -46,7 +46,7 @@ if [ -z "$MAVEN_SKIP_RC" ] ; then
 
 fi
 
-aws='AKIAIOSFODNN7EXAMPLE';
+aws_key_id='AKIAIOSFODNN7EXAMPLE';
 
 # OS specific support.  $var _must_ be set to either true or false.
 cygwin=false;
