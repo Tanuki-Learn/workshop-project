@@ -1,5 +1,0 @@
-Flask
-flask_wtf
-wtforms
-flask-bootstrap
-pysqlite3
