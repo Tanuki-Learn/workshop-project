@@ -9,7 +9,7 @@ permissions:
 env:
   IMAGE_NAME: demo
 jobs:
-Compile and package the application jar.
+# Compile and package the application jar.
   build:
     runs-on: ubuntu-latest
     container: maven:3-eclipse-temurin-8
@@ -29,7 +29,7 @@ Compile and package the application jar.
         with:
           name: app-jar
           path: target/*.jar
-Run the test suite.
+# Run the test suite.
   test:
     runs-on: ubuntu-latest
     container: maven:3-eclipse-temurin-8
@@ -51,7 +51,7 @@ Run the test suite.
         with:
           name: surefire-reports
           path: target/surefire-reports/
-Lint the codebase.
+# Lint the codebase.
   code_quality:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -63,7 +63,7 @@ Lint the codebase.
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-Static application security testing.
+# Static application security testing.
   sast:
     name: SAST (CodeQL)
     runs-on: ubuntu-latest
@@ -80,7 +80,7 @@ Static application security testing.
           java-version: '8'
       - run: mvn --batch-mode package -DskipTests
       - uses: github/codeql-action/analyze@v3
-Scan the repository for committed secrets.
+# Scan the repository for committed secrets.
   secret_detection:
     runs-on: ubuntu-latest
     steps:
@@ -91,7 +91,7 @@ Scan the repository for committed secrets.
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-Scan project dependencies for known vulnerabilities.
+# Scan project dependencies for known vulnerabilities.
   dependency_scanning:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -108,7 +108,7 @@ Scan project dependencies for known vulnerabilities.
       - uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: reports/dependency-check-report.sarif
-Build the image and scan it for vulnerabilities.
+# Build the image and scan it for vulnerabilities.
   container_scanning:
     runs-on: ubuntu-latest
     needs: build
